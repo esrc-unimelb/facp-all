@@ -1,0 +1,3 @@
+[General]
+eac: /srv/ha/web/FCQD/LIVE/eac
+map: http://www.findandconnect.gov.au/ref/qld, /srv/ha/web/FCQD/LIVE
