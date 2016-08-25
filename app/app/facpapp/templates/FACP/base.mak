@@ -182,7 +182,6 @@
 				<li><a href="/resources/where-to-start/">Where to Start</a></li>
 				<li><a href="/resources/family-tracing/">Family Tracing</a></li>
 				<li><a href="/resources/former-child-migrants/">Former Child Migrants</a></li>
-				<li><a href="/resources/stolen-generations/">Stolen Generations</a></li>
 				<li><a href="/resources/what-to-expect-when-accessing-records/">What to Expect when Accessing Records about You</a></li>
 				<li><a href="/resources/historical-background-about-child-welfare/">Historical Background About Child Welfare</a></li>
 				<li><a href="/resources/searching-for-records-of-a-parent-or-grandparent/">Searching for Records of a Parent or Grandparent</a></li>
@@ -201,8 +200,10 @@
 			<br/>
 			<h4 class="mbs">Resources</h4>
 			<ul class="list-bullet">
+				<li><a href="/resources/">All Resources</a></li>
 				<li><a href="/resources/radp/">Resources for Record Holders</a></li>
 				<li><a href="/resources/find-connect-web-resource-induction-pack/">Find &amp Connect web resource Induction Pack</a></li>
+				<li><a href="/resources/rad2-grants">RAD2 grants for Records Access Documentation projects</a></li>
 			</ul>
 		</div>
 		<div class="col col-last">
