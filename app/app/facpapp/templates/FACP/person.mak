@@ -21,7 +21,7 @@ ${doc['summary']['last_updated']}
 			<div class="entity-image">
 				%if doc['summary']['keystone_image'] != None:
                     <a href="${doc['summary']['keystone_image_url']}">
-                        <img src="${doc['summary']['keystone_image']}" alt="">
+                        <img src="${doc['summary']['keystone_image']}" alt="${doc['header']['title']}">
                     </a>
                     <p class="caption">${doc['summary']['keystone_citation']}</p>
                     <a class="details" href="${doc['summary']['keystone_image_url']}">DETAILS</a>
