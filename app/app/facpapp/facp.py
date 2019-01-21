@@ -177,7 +177,15 @@ class FACP:
             return ""
 
     def get_header(self, tree):
-	choices = {'AE': 'Australian Capital Territory', 'YE': 'Northern Territory', 'NE': 'New South Wales', 'E0': 'Victoria', 'QE': 'Queensland', 'SE': 'South Australia', 'WE': 'Western Australia', 'TE': 'Tasmania'}
+	choices = {'AE': 'Australian Capital Territory', 
+		'YE': 'Northern Territory', 
+		'NE': 'New South Wales', 
+		'E0': 'Victoria', 
+		'QE': 'Queensland', 
+		'SE': 'South Australia', 
+		'WE': 'Western Australia', 
+		'TE': 'Tasmania'}
+
         """ Construct the header for the focus entity
 
         @params:
@@ -186,14 +194,14 @@ class FACP:
         header = {}
         header['today'] = datetime.datetime.strftime(datetime.date.today(), "%d %B %Y")
         header['localtype'] = self.get(tree, '/e:eac-cpf/e:control/e:localControl/e:term')
-        header['state'] = self.get(tree, '/e:eac-cpf/e:cpfDescription/e:description/e:places/e:place/e:placeEntry')
+        # header['state'] = self.get(tree, '/e:eac-cpf/e:cpfDescription/e:description/e:places/e:place/e:placeEntry')
 	header['title'] = self.get(tree, '/e:eac-cpf/e:cpfDescription/e:identity/e:nameEntry[1]/e:part[1]')
         header['binomial_title'] = self.get(tree, '/e:eac-cpf/e:cpfDescription/e:identity/e:nameEntry/e:part[2]')
         header['from'] = self.get(tree, '/e:eac-cpf/e:cpfDescription/e:description/e:existDates/e:dateRange/e:fromDate', attrib='standardDate')
         header['from'] = header['from'].split('-')[0]
         header['to'] = self.get(tree, '/e:eac-cpf/e:cpfDescription/e:description/e:existDates/e:dateRange/e:toDate', attrib='standardDate')
         header['to'] = header['to'].split('-')[0]
-	header['state'] = choices.get(self.entity[:2],'Australia') #  url[orig_href.rfind("/")+1:]
+	header['state'] = choices.get(self.entity[:2],'Australia') 
         return header
 
     def get_summary(self, tree):
