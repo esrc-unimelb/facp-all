@@ -26,7 +26,7 @@ ${doc['summary']['last_updated']}
                 <ul>
                     <li>
                         <a href="${doc['summary']['keystone_image_url']}">
-                            <img src="${doc['summary']['keystone_image']}" alt="">
+                            <img src="${doc['summary']['keystone_image']}" alt="${doc['header']['title']}">
                         </a>
                         <p class="caption">
                             ${doc['summary']['keystone_citation']}

@@ -21,48 +21,19 @@ class FACP:
         self.request = request
         self.entity = str(request.matchdict['entity'])
 
-        self.code = {
-            'act':       'FCAC',
-            'australia': 'FCNA',
-            'nsw':       'FCNS',
-            'nt':        'FCNT',
-            'qld':       'FCQD',
-            'sa':        'FCSA',
-            'tas':       'FCTS',
-            'vic':       'FCVC',
-            'wa':        'FCWA',
-        }
-        self.state = {
-            'FCAC': 'act',
-            'FCNA': 'australia',
-            'FCNS': 'nsw',
-            'FCNT': 'nt',
-            'FCQD': 'qld',
-            'FCSA': 'sa',
-            'FCTS': 'tas',
-            'FCVC': 'vic',
-            'FCWA': 'wa'
-        }
-
         # an array of sources used to compile the entry
         self.sources = []
 
     @view_config(route_name='page')
     def page(self):
-        state = self.request.matchdict['state']
-        c = Config(self.request, self.code[state])
-        self.conf = c.load()
-        return self.get_page()
+	return self.get_page()
 
     @view_config(route_name='page_json', renderer='json')
     def page_json(self):
-        state = self.request.matchdict['state']
-        c = Config(self.request, self.code[state])
-        self.conf = c.load()
         return self.get_content()
 
     def get_page(self):
-        source_document = "%s/%s.xml" % (self.conf.eac, self.entity)
+        source_document = "%s/%s.xml" % ("/srv/ha/web/FCXX/testing/eac", self.entity)
         try:
             tree = etree.parse(source_document)
         except IOError:
@@ -95,10 +66,10 @@ class FACP:
     def get_content(self):
         t1 = time.time()
 
-        log.debug("EAC data location: %s" % self.conf.eac)
-        log.debug("Entity: %s/%s.xml" % (self.conf.eac, self.entity))
+        log.debug("EAC data location: %s" % "/srv/ha/web/FCXX/testing/eac")
+        log.debug("Entity: %s/%s.xml" % ("/srv/ha/web/FCXX/testing/eac", self.entity))
 
-        source_document = "%s/%s.xml" % (self.conf.eac, self.entity)
+        source_document = "%s/%s.xml" % ("/srv/ha/web/FCXX/testing/eac", self.entity)
         try:
             tree = etree.parse(source_document)
         except IOError:
@@ -109,15 +80,15 @@ class FACP:
         href = self.get_xml(href)
 
         doc = {
-            'EAC data path': self.conf.eac,
-            'Entity': "%s/%s.xml" % (self.conf.eac, self.entity),
+            'EAC data path': "/srv/ha/web/FCXX/testing/eac",
+            'Entity': "%s/%s.xml" % ("/srv/ha/web/FCXX/testing/eac", self.entity),
             'locations': self.get_locations(tree),
             'header': self.get_header(tree),
             'summary': self.get_summary(tree),
             'glossary': self.get_glossary_terms(tree),
             'records': self.get_records(tree),
             'images': self.get_images(tree),
-            'sources': self.sources,
+            'sources': self.entity,
         }
 
         t2 = time.time()
@@ -206,6 +177,15 @@ class FACP:
             return ""
 
     def get_header(self, tree):
+	choices = {'AE': 'Australian Capital Territory', 
+		'YE': 'Northern Territory', 
+		'NE': 'New South Wales', 
+		'E0': 'Victoria', 
+		'QE': 'Queensland', 
+		'SE': 'South Australia', 
+		'WE': 'Western Australia', 
+		'TE': 'Tasmania'}
+
         """ Construct the header for the focus entity
 
         @params:
@@ -214,13 +194,14 @@ class FACP:
         header = {}
         header['today'] = datetime.datetime.strftime(datetime.date.today(), "%d %B %Y")
         header['localtype'] = self.get(tree, '/e:eac-cpf/e:control/e:localControl/e:term')
-        header['state'] = ' '.join(self.get(tree, '/e:eac-cpf/e:control/e:maintenanceAgency/e:agencyName').split()[4:])
-        header['title'] = self.get(tree, '/e:eac-cpf/e:cpfDescription/e:identity/e:nameEntry[1]/e:part[1]')
+        # header['state'] = self.get(tree, '/e:eac-cpf/e:cpfDescription/e:description/e:places/e:place/e:placeEntry')
+	header['title'] = self.get(tree, '/e:eac-cpf/e:cpfDescription/e:identity/e:nameEntry[1]/e:part[1]')
         header['binomial_title'] = self.get(tree, '/e:eac-cpf/e:cpfDescription/e:identity/e:nameEntry/e:part[2]')
         header['from'] = self.get(tree, '/e:eac-cpf/e:cpfDescription/e:description/e:existDates/e:dateRange/e:fromDate', attrib='standardDate')
         header['from'] = header['from'].split('-')[0]
         header['to'] = self.get(tree, '/e:eac-cpf/e:cpfDescription/e:description/e:existDates/e:dateRange/e:toDate', attrib='standardDate')
         header['to'] = header['to'].split('-')[0]
+	header['state'] = choices.get(self.entity[:2],'Australia') 
         return header
 
     def get_summary(self, tree):
@@ -548,7 +529,7 @@ class FACP:
         else:
             ref = href
 
-        return ref.replace(self.conf.map[0], self.conf.map[1])
+        return ref.replace("http://fcxx.esrc.info/ref/fcxx", "/srv/ha/web/FCXX/testing")
 
     def get_guide_url(self, eid, orig_href):
         """Given a document reference and entity id, return the path of that entity in the guide
