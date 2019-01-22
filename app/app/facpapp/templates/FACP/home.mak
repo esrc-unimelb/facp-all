@@ -64,9 +64,18 @@ ${doc['summary']['last_updated']}
 						</ul>
 					</dd>
 				%endif
-			</dl>
+				%if len(doc['header']['state']):
+					<dt>Location</dt>
+					<dd>
+						<ul>
+							${doc['header']['state']} 
+						</ul>
+					</dd>
+			
+				%endif
 			<br/>
 			<p>
+			</dl>
                 %for note in doc['summary']['summary_note']:
                     <p>${note | n}</p>
                 %endfor
@@ -86,7 +95,7 @@ ${doc['summary']['last_updated']}
                     %endif
                 </div>
             </div>
-				<h2>
+<!--				<h2>
 					Locations	
 				</h2>	
             %if not doc['locations']:
@@ -100,7 +109,7 @@ ${doc['summary']['last_updated']}
                     %endfor
                 </dl>
             %endif
-
+-->
 			%if doc['summary']['relations_earlier'] or doc['summary']['relations_later']:
                 <h2>
                     Timeline
@@ -132,13 +141,10 @@ ${doc['summary']['last_updated']}
 			<div class="row row-margin-30">
 				%if not doc['records']:
                     <p>
-                    We do not currently have any records linked to this organisation, but records may exist.
-                    The Find & Connect Support Service can help people who lived in orphanages and children's institutions look for their records.
-                    </p>
-                    <p>
-                        You can also find out more by visiting 
-                        <a href="/featured-stories/what-to-expect-when-accessing-records/#5">
-                        Other important records</a>.
+			We do not currently have any records linked to this entry. If you know of any additional records, please <a href="http://www.findandconnect.gov.au/contact/ask-us/">contact us</a>. 
+		    </p>
+		    <p>
+			The Find & Connect Support Service can help people who lived in orphanages and children's institutions look for their records.
                     </p>
 				%else:
 					%for record in doc['records']:
@@ -170,8 +176,12 @@ ${doc['summary']['last_updated']}
 		</div>
 		<div id='tab3'>
 			%if not doc['images']:
-				We do not currently have any photographs linked to this organisation, but photographs may exist.
-                If you know of any photographs related to this Home please <a href="#" onclick="send('/contact/ask-us/')">contact us</a>.
+  <p>
+                        We do not currently have any photographs linked to this entry. If you know of any additional photographs, please <a href="http://www.findandconnect.gov.au/contact/ask-us/">contact us</a>.
+                    </p>
+                    <p>
+                        The Find & Connect Support Service can help people who lived in orphanages and children's institutions look for their records.
+                    </p>
             %else:
 				%for row in doc['images']:
 					<div class="row">
