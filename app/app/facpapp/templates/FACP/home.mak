@@ -50,15 +50,6 @@ ${doc['summary']['last_updated']}
 					<dt>Categories</dt>
 					<dd>${doc['summary']['categories']}</dd>
 				%endif
-				%if len(doc['header']['state']):
-					<dt>Location</dt>
-					<dd>
-						<ul>
-							${doc['header']['state']} 
-						</ul>
-					</dd>
-			
-				%endif
 				%if len(doc['summary']['altnames']):
 					<dt>Alternative Names</dt>
 					<dd>
@@ -73,7 +64,15 @@ ${doc['summary']['last_updated']}
 						</ul>
 					</dd>
 				%endif
-
+				%if len(doc['header']['state']):
+					<dt>Location</dt>
+					<dd>
+						<ul>
+							${doc['header']['state']} 
+						</ul>
+					</dd>
+			
+				%endif
 			<br/>
 			<p>
 			</dl>
