@@ -14,6 +14,9 @@ ${doc['summary']['last_updated']}
 	<div id="navtabs">
 		<ul class="list-nb tabs font18">
 			<li><a href="#tab1" class="btn">Summary</a></li>
+       <li><a href="#tab2" class="btn">Records</a></li>
+            <li><a href="#tab3" class="btn">Photos</a></li>
+
             ##<li><a href="#tab2" class="btn">Sources</a></li>
 			<li><a href="${doc['summary']['reference_document']}" class="btn external">Full page</a> </li>
 		</ul>
@@ -61,6 +64,15 @@ ${doc['summary']['last_updated']}
 						</ul>
 					</dd>
 				%endif
+				%if len(doc['header']['state']):
+                                        <dt>Location</dt>
+                                        <dd>
+                                                <ul>
+                                                        ${doc['header']['state']} 
+                                                </ul>
+                                        </dd>
+                        
+                                %endif
 			</dl>
 			<br/>
 			<p>
@@ -103,6 +115,87 @@ ${doc['summary']['last_updated']}
                 </dl>
 			%endif
 		</div>
+
+  <div id='tab2'>
+            <script type="text/javascript">
+              function send(url) {
+                window.location = url + "?u=" + encodeURIComponent(window.location) + "&t=" + encodeURIComponent(document.title);
+              }
+            </script>
+<div class="row row-margin-30">
+                                %if not doc['records']:
+                             <p>
+                                We do not currently have any resources linked to this entry, but resources may exist.  If you know of any related resources, please <a href="#" onclick="send('/contact/ask-us/')">contact us</a>.
+                        </p>
+                        <p>
+                                The Find & Connect Support Service can help people who lived in orphanages and children's institutions look for their records.
+                        </p>
+                                %else:
+                                        %for record in doc['records']:
+                                        <div class="row module">
+                        <dl class="content-summary">
+                            <dt>${record['type']} Title</dt>
+                            <dd>${record['title']}</dd>
+                            <dt>Date Range</dt>
+                            <dd>${record['from_date']} - ${record['to_date']}</dd>
+                            <dt>Reference</dt>
+                            <dd>
+                                ${record['reference']}
+                                %if record['local_type'] != '':
+                                    [${record['local_type']}]
+                                %endif
+                            </dd>
+                            <dt>Contact</dt>
+                            <dd>
+                                %for note in record['contact_details']:
+                                ${note | n}<br/>
+                                %endfor
+                                <a class="details" href="${record['link']}">DETAILS</a></a>
+                            </dd>
+                        </dl>
+                                        </div>
+                                        %endfor
+                                %endif
+                        </div>
+        </div>
+         <div id='tab3'>
+            <script type="text/javascript">
+              function send(url) {
+                window.location = url + "?u=" + encodeURIComponent(window.location) + "&t=" + encodeURIComponent(document.title);
+              }
+            </script>
+            <div class="row row-margin-30">
+                        %if not doc['images']:
+ <p>
+                        We do not currently have any photographs linked to this entry. If you know of any additional photographs, please <a href="#" onclick="send('/contact/ask-us/')">contact us</a>.
+                    </p>
+                    <p>
+			                                The Find & Connect Support Service can help people who lived in orphanages and children's institutions look for their records.
+                    </p>
+
+
+                        %else:
+   %for row in doc['images']:
+                                        <div class="row">
+                                                %for photo in row:
+                            %if loop.index < 3:
+                                                        <div class="col">
+                            %else:
+                                                        <div class="col col-last">
+                            %endif
+                                                                <a href="${photo['dobject_page']}">
+                                                                        <img src="${photo['dobject']}" alt="${photo['title']}">
+                                                                </a>
+                                                                <span class="caption">${photo['title']}</span>
+                                                        </div>
+                                                %endfor
+                                        </div>
+                                %endfor
+                        %endif
+
+            </div>
+        </div>
+
 ##		<div id="tab2">
 ##			<div id="sources" class="sources">
 ##			  This page was created on ${doc['header']['today']} from the following data sources:
