@@ -24,6 +24,7 @@
 	<link rel="stylesheet" href="/assets/css/modules-forms.css">
 	<link rel="stylesheet" href="/assets/css/modules-nav.css">
 	<link rel="stylesheet" href="/assets/css/search.css">
+	<link rel="stylesheet" href="/assets/css/accessibility.css">
 	<script src="/assets/js/responsive-nav2.js"></script>
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -56,6 +57,7 @@
 				});
         });
 	</script>
+
     <script type="text/javascript">
       function send(url) {
         window.location = url + "?u=" + encodeURIComponent(window.location) + "&t=" + encodeURIComponent(document.title);
@@ -75,8 +77,17 @@
 		This constructs the URL with the required referring page information -->
 
    </script>
+   <script type="text/javascript">  var _paq = _paq || [];    _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']);   (function() {
+    var u="//stats.esrc.info/";
+    _paq.push(['setTrackerUrl', u+'s.php']);
+    _paq.push(['setSiteId', '3']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'s.js'; s.parentNode.insertBefore(g,s);
+  })();
+   </script>
 </head>
 <body>
+			<div class="skip-link"><a href="#tab1">Skip to content</a></div>
 <div class="row header-outer">
 	<div class="row container header" role="banner">
 		<div class="header-logo">
@@ -109,8 +120,8 @@
 				Some people may find content on this website distressing. <a href="/content-warning/">Read more</a>
 			</div>
             <div id="state">
-                ${doc['header']['state']} - ${doc['header']['localtype']}
-            </div>
+             <!--   ${doc['header']['state']} - --> ${doc['header']['localtype']}
+	    </div>
             <h1 style="margin-bottom: 5px;">
                 ${doc['header']['title']}&nbsp;(${doc['header']['from']}&nbsp;-&nbsp;${doc['header']['to']})
             </h1>
@@ -168,7 +179,7 @@
 				<li><a href="/about/acknowledgement/">Acknowledgement</a></li>
 				<li><a href="/about/background/">Background</a></li>
 				<li><a href="/about/accessibility/">Accessibility</a></li>
-				<li><a href="/about/web-resource-credits/">Credits</a></li>
+				<li><a href="/about/credits/">Credits</a></li>
 				<li><a href="/about/feedback/">Feedback</a></li>
 				<li><a href="/about/content-warning/">Content Warning</a></li>
 				<li><a href="/about/terms-and-conditions/">Terms &amp; Conditions</a></li>
@@ -203,7 +214,7 @@
 				<li><a href="/resources/">All Resources</a></li>
 				<li><a href="/resources/radp/">Resources for Record Holders</a></li>
 				<li><a href="/resources/find-connect-web-resource-induction-pack/">Find &amp Connect web resource Induction Pack</a></li>
-				<li><a href="/resources/rad2-grants">RAD2 grants for Records Access Documentation projects</a></li>
+				<li><a href="/resources/rad2-grants">Records Access Documentation grants</a></li>
 			</ul>
 		</div>
 		<div class="col col-last">

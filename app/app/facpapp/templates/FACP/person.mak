@@ -54,6 +54,15 @@ ${doc['summary']['last_updated']}
 						</ul>
 					</dd>
 				%endif
+				%if len(doc['header']['state']):
+                                        <dt>Location</dt>
+                                        <dd>
+                                                <ul>
+                                                        ${doc['header']['state']} 
+                                                </ul>
+                                        </dd>
+                        
+                                %endif
 			</dl>
 			<br/>
 			<p>
